@@ -5,14 +5,28 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [SerializeField] private TextMeshProUGUI energyText;
-
     public double Energy { get; private set; }
+    public void SetPPS(double value) => pps = value;
+
+    private double pps;
+    private double ticker;
+    [SerializeField] private TextMeshProUGUI energyText;
 
     void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    void Update()
+    {
+        if (pps <= 0) return;
+        ticker += Time.deltaTime;
+        if (ticker >= 1f)
+        {
+            AddEnergy(pps * ticker);
+            ticker = 0;
+        }
     }
 
     public void AddEnergy(double amount)
@@ -29,7 +43,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        energyText.text = FormatNumber(Energy) + " ⚡";
+        energyText.text = FormatNumber(Energy);
     }
 
     private string FormatNumber(double n)
@@ -38,4 +52,6 @@ public class GameManager : MonoBehaviour
         if (n >= 1_000) return $"{n / 1_000:F1}K";
         return $"{n:F0}";
     }
+
+
 }

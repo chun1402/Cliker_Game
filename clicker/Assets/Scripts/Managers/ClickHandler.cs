@@ -7,5 +7,6 @@ public class ClickHandler : MonoBehaviour
     public void OnClick()
     {
         GameManager.Instance.AddEnergy(energyPerClick);
+        Debug.Log("클릭! 현재 에너지: " + GameManager.Instance.Energy);
     }
 }
