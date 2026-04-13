@@ -5,12 +5,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    [SerializeField] private TextMeshProUGUI energyText;
+
     public double Energy { get; private set; }
-    public void SetPPS(double value) => pps = value;
 
     private double pps;
     private double ticker;
-    [SerializeField] private TextMeshProUGUI energyText;
+    private float saveTimer;
 
     void Awake()
     {
@@ -18,16 +19,45 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    void Start()
+    {
+        // 에너지 불러오기
+        string val = PlayerPrefs.GetString("Energy", "0");
+        Energy = double.Parse(val);
+        UpdateUI();
+    }
+
     void Update()
     {
-        if (pps <= 0) return;
-        ticker += Time.deltaTime;
-        if (ticker >= 1f)
+        // PPS 자동 생산
+        if (pps > 0)
         {
-            AddEnergy(pps * ticker);
-            ticker = 0;
+            ticker += Time.deltaTime;
+            if (ticker >= 1f)
+            {
+                AddEnergy(pps * ticker);
+                ticker = 0;
+            }
+        }
+
+        // 30초마다 자동저장
+        saveTimer += Time.deltaTime;
+        if (saveTimer >= 30f)
+        {
+            Save();
+            saveTimer = 0;
         }
     }
+
+    public void Save()
+    {
+        PlayerPrefs.SetString("Energy", Energy.ToString());
+        UpgradeManager.Instance.Save();
+        PlayerPrefs.Save();
+        Debug.Log("저장 완료!");
+    }
+
+    public void SetPPS(double value) => pps = value;
 
     public void AddEnergy(double amount)
     {
@@ -52,6 +82,4 @@ public class GameManager : MonoBehaviour
         if (n >= 1_000) return $"{n / 1_000:F1}K";
         return $"{n:F0}";
     }
-
-
 }

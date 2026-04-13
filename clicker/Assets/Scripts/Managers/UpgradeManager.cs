@@ -38,6 +38,19 @@ public class UpgradeManager : MonoBehaviour
 
         GameManager.Instance.SetPPS(TotalPPS);
     }
+    //저장
+    public void Save()
+    {
+        foreach (var pair in owned)
+            PlayerPrefs.SetInt(pair.Key.upgradeName, pair.Value);
+    }
+
+    // 불러오기
+    private void Load()
+    {
+        foreach (var u in allUpgrades)
+            owned[u] = PlayerPrefs.GetInt(u.upgradeName, 0);
+    }
 
     public int GetOwned(UpgradeData data) => owned[data];
     public double GetCost(UpgradeData data) => data.GetCost(owned[data]);
