@@ -19,6 +19,13 @@ public class UpgradeManager : MonoBehaviour
             owned[u] = 0;
     }
 
+    void Start()
+    {
+        Load();
+        RecalculatePPS();
+        GameManager.Instance.ApplyOfflineReward(); // GameManager의 메서드 호출
+    }
+
     public bool TryBuy(UpgradeData data)
     {
         double cost = data.GetCost(owned[data]);
@@ -39,6 +46,7 @@ public class UpgradeManager : MonoBehaviour
         GameManager.Instance.SetPPS(TotalPPS);
     }
     //저장
+    // UpgradeManager.cs의 Save()
     public void Save()
     {
         foreach (var pair in owned)
@@ -49,9 +57,11 @@ public class UpgradeManager : MonoBehaviour
     private void Load()
     {
         foreach (var u in allUpgrades)
-            owned[u] = PlayerPrefs.GetInt(u.upgradeName, 0);
+            owned[u] = SaveManager.Instance.LoadOwned(u);
     }
 
     public int GetOwned(UpgradeData data) => owned[data];
     public double GetCost(UpgradeData data) => data.GetCost(owned[data]);
+
+    
 }
