@@ -1,17 +1,14 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ClickHandler : MonoBehaviour
+public class ClickHandler : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private double energyPerClick = 1;
 
-    public void OnClick()
+    public void OnPointerDown(PointerEventData eventData)
     {
         GameManager.Instance.AddEnergy(energyPerClick);
-
-        // RectTransform의 anchoredPosition 직접 넘기기
-        RectTransform rect = GetComponent<RectTransform>();
-        FloatingTextManager.Instance.ShowAt($"+{energyPerClick}", rect.anchoredPosition);
-
+        FloatingTextManager.Instance.ShowAt($"+{energyPerClick}", eventData.position);
         Debug.Log("클릭! 현재 에너지: " + GameManager.Instance.Energy);
     }
 }

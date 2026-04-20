@@ -32,10 +32,18 @@ public class FloatingTextManager : MonoBehaviour
         ft.SetText(msg);
     }
 
-    public void ShowAt(string msg, Vector2 anchoredPos)
+    public void ShowAt(string msg, Vector2 screenPos)
     {
         FloatingText ft = Instantiate(floatingTextPrefab, canvas.transform);
-        ft.SetPosition(anchoredPos + new Vector2(Random.Range(-30f, 30f), 50f));
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvas.GetComponent<RectTransform>(),
+            screenPos,
+            null,
+            out Vector2 localPos
+        );
+
+        ft.SetPosition(localPos + new Vector2(Random.Range(-20f, 20f), 0));
         ft.SetText(msg);
     }
 }
