@@ -63,5 +63,12 @@ public class UpgradeManager : MonoBehaviour
     public int GetOwned(UpgradeData data) => owned[data];
     public double GetCost(UpgradeData data) => data.GetCost(owned[data]);
 
-    
+    public void Reset()
+    {
+        foreach (var u in allUpgrades)
+            owned[u] = 0;
+
+        RecalculatePPS();
+    }
+
 }

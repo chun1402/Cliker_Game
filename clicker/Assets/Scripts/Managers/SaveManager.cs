@@ -49,4 +49,11 @@ public class SaveManager : MonoBehaviour
 
         return System.Math.Min(offlineSeconds, 28800);
     }
+
+    public void DeleteAll()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+        Debug.Log("저장 데이터 삭제!");
+    }
 }

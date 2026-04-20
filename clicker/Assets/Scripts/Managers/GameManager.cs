@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [SerializeField] private TextMeshProUGUI energyText;
+    [SerializeField] private TextMeshProUGUI ppsText;
 
     public double Energy { get; private set; }
 
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviour
     private void UpdateUI()
     {
         energyText.text = FormatNumber(Energy);
+        ppsText.text = "per second " + FormatNumber(pps);
     }
 
     private string FormatNumber(double n)
@@ -110,4 +112,10 @@ public class GameManager : MonoBehaviour
     void OnApplicationQuit() => Save();
     void OnApplicationPause(bool pause) { if (pause) Save(); }
 
+    public void ResetEnergy()
+    {
+        Energy = 0;
+        pps = 0;
+        UpdateUI();
+    }
 }
