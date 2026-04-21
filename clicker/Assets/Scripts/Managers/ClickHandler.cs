@@ -7,8 +7,9 @@ public class ClickHandler : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        GameManager.Instance.AddEnergy(energyPerClick);
-        FloatingTextManager.Instance.ShowAt($"+{energyPerClick}", eventData.position);
+        double bonus = energyPerClick * PrestigeManager.Instance.ClickMultiplier;
+        GameManager.Instance.AddEnergy(bonus);
+        FloatingTextManager.Instance.ShowAt($"+{bonus:F1}", eventData.position);
         Debug.Log("클릭! 현재 에너지: " + GameManager.Instance.Energy);
     }
 }
