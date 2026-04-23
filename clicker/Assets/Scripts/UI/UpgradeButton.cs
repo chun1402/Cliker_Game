@@ -24,7 +24,8 @@ public class UpgradeButton : MonoBehaviour
 
     public void OnClickBuy()
     {
-        UpgradeManager.Instance.TryBuy(data);
+        if (UpgradeManager.Instance.TryBuy(data))
+            AudioManager.Instance.PlayBuy();
     }
 
     private string FormatNumber(double n)

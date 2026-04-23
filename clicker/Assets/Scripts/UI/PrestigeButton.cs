@@ -21,5 +21,6 @@ public class PrestigeButton : MonoBehaviour
     public void OnClickPrestige()
     {
         PrestigeManager.Instance.Prestige();
+        AudioManager.Instance.PlayPrestige();
     }
 }
