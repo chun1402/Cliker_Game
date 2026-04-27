@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SO_Wormhole
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: Wormhole
-  baseCost: 50000
+  baseCost: 20000
   basePPS: 50
   costMultiplier: 1.15

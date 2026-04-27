@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SO_BigBang
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: BigBang
-  baseCost: 10000000
+  baseCost: 1000000
   basePPS: 100
   costMultiplier: 1.15

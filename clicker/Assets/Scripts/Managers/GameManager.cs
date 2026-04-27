@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     private void UpdateUI()
     {
         energyText.text = FormatNumber(Energy);
-        ppsText.text = "per second " + FormatNumber(pps);
+        ppsText.text = "per second " + pps.ToString("F2");
     }
 
     private string FormatNumber(double n)

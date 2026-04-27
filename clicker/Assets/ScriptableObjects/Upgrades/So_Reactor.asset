@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: so_Reactor
   baseCost: 100
-  basePPS: 0.5
+  basePPS: 0.25
   costMultiplier: 1.15

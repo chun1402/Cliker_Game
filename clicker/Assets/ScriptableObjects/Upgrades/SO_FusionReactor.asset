@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SO_FusionReactor
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: FusionReactor
-  baseCost: 10000
+  baseCost: 5000
   basePPS: 10
   costMultiplier: 1.15
