@@ -116,5 +116,5 @@ git clone https://github.com/chun1402/Cliker_Game.git
 
 ## 👤 개발자
 - chun1402
-- 개발 기간: 2026년 04.01 ~ 05.01
+- 개발 기간: 2026년 04.08 ~ 05.01
 - 개발 환경: Unity 6, Visual Studio
