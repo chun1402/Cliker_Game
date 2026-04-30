@@ -7,6 +7,8 @@ public class UpgradeManager : MonoBehaviour
 
     [SerializeField] private List<UpgradeData> allUpgrades;
     private Dictionary<UpgradeData, int> owned = new();
+    private LinkedList<UpgradeData> upgradeChain = new();
+    private SortedDictionary<double, UpgradeData> sortedUpgrades = new();
 
     public double TotalPPS { get; private set; }
 
@@ -16,7 +18,11 @@ public class UpgradeManager : MonoBehaviour
         else Destroy(gameObject);
 
         foreach (var u in allUpgrades)
+        {
             owned[u] = 0;
+            sortedUpgrades[u.baseCost] = u; // ← 가격순 자동 정렬
+        }
+
     }
 
     void Start()
@@ -37,6 +43,15 @@ public class UpgradeManager : MonoBehaviour
         return true;
     }
 
+    public UpgradeData GetNextLocked()
+    {
+        foreach (var u in upgradeChain)
+        {
+            if (owned[u] == 0) return u; // 아직 안 산 첫 번째
+        }
+        return null;
+    }
+
     private void RecalculatePPS()
     {
         TotalPPS = 0;
@@ -45,6 +60,14 @@ public class UpgradeManager : MonoBehaviour
 
         GameManager.Instance.SetPPS(TotalPPS);
     }
+
+    // 가격순으로 정렬된 업그레이드 반환
+    public IEnumerable<UpgradeData> GetSortedUpgrades()
+    {
+        return sortedUpgrades.Values;
+    }
+
+
     //저장
     // UpgradeManager.cs의 Save()
     public void Save()
